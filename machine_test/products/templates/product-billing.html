@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product billing</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{% static 'javascript/product-billing.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js" integrity="sha512-bztGAvCE/3+a1Oh0gUro7BHukf6v7zpzrAb3ReWAVrt+bVNNphcl2tDTKCBr5zk7iEDmQ2Bv401fX3jeVXGIcA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="{% static 'css/product-billing.css' %}">
+</head>
+<body>
+    
+<div>
+    <div style="text-align: center;">
+        <h1>PRODUCT BILLING</h1>
+    </div>
+    <div class="center ">
+
+
+<form action="{% url 'search' %}" method="POST">
+    {% csrf_token %}
+        <div  style="margin-left: 30px" class="input-icons">
+        <label for="serach"> search products</label>
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="search here" id="input-one" name="search_box" >
+        <button type="submit">search</button>
+    </form>
+</div>
+        <div >
+
+            
+
+
+
+
+            <table border="1px" style="width: 100%;margin-top: 50px; ">
+                <tr style=" background-color: rgb(104, 170, 170);">
+                <th>id</th>
+                <th>product name</th>
+                <th>description</th>
+                <th>categorie</th>
+                <th>sub categorie </th>
+
+                <th> quantity</th>
+                <th>purchase</th>
+                </tr>
+                {% if data %}
+                {% for d in data %}
+                <form action="/products/add-to-invoice/" method="POST" >
+                    {% csrf_token %}
+                    
+                <tr>
+                <td>{{d.id}} <input type="text " value="{{d.id}} " hidden name="id"></td>
+                <td>{{d.p_name}}</td>
+                <td>{{d.desc}}</td>
+                <td>{{d.category}}</td>
+                <td>{{d.sub_category}}</td>
+                <td hidden ><input type="text " value="1" name="qty"></td>
+                <td>{{d.quantity}}</td>
+                
+                    
+                <td><button type="submit" style="width: 100%;" >add</button></td>
+                </tr>
+            </form>
+                {% endfor %}
+                {% endif %}
+                
+                
+                
+                </table>
+        </div>
+
+
+
+
+
+        <div style="text-align: center;margin-top: 50px;">
+<h2> INVOICE</h2>
+        </div>
+<div style="text-align: right;">
+    <p style="margin-right: 50px;">Date of purchase  25/08/2022  </p>
+</div>
+
+<div>
+<table border="1px" style="width: 100%;">
+<tr>
+    <th>id</th>
+    <th>Product Name</th>
+    <th>Description</th>
+    <th>selected quantity</th>
+    <th>amount</th>
+    <th></th>
+</tr>
+{% if invoice %}
+{% for i in invoice %}
+
+
+<tr>
+
+
+<td>{{i.id}}</td>
+<td>{{i.p_id.p_name}}</td>
+<td>{{i.p_id.desc}}</td>
+<td ><input type="number" value="{{i.qty}}" min="1" id="qty-input" onchange="update_quantinty(this,'{{i.id}}','{{i.p_id.amount}}','amount{{ forloop.parentloop.counter }}')"></td>
+<td><input type="number" readonly id="amount{{forloop.parentloop.counter}}" value="{{i.p_id.amount}}"></td>
+<td><button style="width: 100%;">delete</button></td>
+
+</tr>
+
+{% endfor %}
+{% endif %}
+</table>
+<div style="text-align: right;">
+    <p style="margin-right: 50px;">totel amount    </p>
+</div>
+
+
+<form action="{% url 'checkout' %}" >
+<div style="text-align: center;margin-top: 50px;">
+    <button type="submit">checkout</button>
+</div>
+</form>
+
+</div>
+
+
+
+
+    </div>
+
+    </div>
+    
+</div>
+
+
+   
+
+</script> 
+
+
+</body>
+</html>

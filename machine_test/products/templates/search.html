@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1px" style="width: 100%;margin-top: 50px; " >
+        <tr style=" background-color: rgb(104, 170, 170);">
+        <th>id</th>
+        <th>product name</th>
+        <th>description</th>
+        <th>categorie</th>
+        <th>sub categorie </th>
+
+        <th> quantity</th>
+        <th>purchase</th>
+        </tr>
+        {% if s_data %}
+        {% for d in s_data %}
+        <form action="/products/add-to-invoice/" method="POST" >
+            {% csrf_token %}
+            
+        <tr>
+        <td>{{d.id}} <input type="text " value="{{d.id}} " hidden name="id"></td>
+        <td>{{d.p_name}}</td>
+        <td>{{d.desc}}</td>
+        <td>{{d.category}}</td>
+        <td>{{d.sub_category}}</td>
+        <td hidden ><input type="text " value="1" name="qty"></td>
+        <td>{{d.quantity}}</td>
+        
+            
+        <td><button type="submit" style="width: 100%;" >add</button></td>
+        </tr>
+    </form>
+        {% endfor %}
+        {% endif %}
+        
+        
+        
+        </table>
+</body>
+</html>

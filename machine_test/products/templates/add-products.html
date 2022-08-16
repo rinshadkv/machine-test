@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add product</title>
+    <script src="https://kit.fontawesome.com/8ddc754e9e.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/add-products.css' %}">
+</head>
+<body>
+   
+
+   
+
+    <div style="text-align: center;">
+        <h1>   ADD PRODUCTS</h1>
+    </div>
+   
+
+    <div class="center">
+<form action="" method="POST">
+    
+{% csrf_token %}
+
+
+
+<table id="table-form">
+<tr>
+    <td>
+        <label for="product-name">Product Name</label>
+    </td>
+    <td colspan="3">
+        <input type="text" name="p_name" id="product-name" placeholder="enter product name" required>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="desc">Description</label>
+    </td>
+    <td colspan="3">
+        <textarea name="desc" id="desc" cols="30" rows="8"  placeholder="type here" required></textarea>
+    
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="categories">categories</label>
+    </td>
+    <td>
+       <select name="category" id="categories" required >
+        <option value="" disabled selected>Select your categories</option>
+        <option value="Electronics">Electronics</option>
+       </select>
+    </td>
+    <td>
+        <label for="sub-categories">Sub categories</label>
+    </td>
+    <td>
+        <select name="sub_category" id="sub-categories" required >
+            <option value="" disabled selected>Select your sub categories</option>
+            <option value="Mobile">Mobile </option>
+            <option value="Computer">Computer</option>
+           </select>
+
+    </td>
+</tr>
+<tr>
+<td>
+    <label for="weight">weight</label>
+</td>
+
+<td>
+    <input type="number" id="weight" name="weight"  class="input-items" placeholder="weight" required>
+</td>
+<td>
+    <label for="unit">Unit</label>
+</td>
+<td>
+    <select name="unit" id="unit" required>
+        <option value="kg">kg</option>
+        <option value="g">g</option>
+    </select>
+</td>
+
+
+</tr>
+<tr>
+<td>
+    <label for="quantity">Quantity</label>
+</td>
+<td>
+    <input type="number" name="quantity" id="quantity" class="input-items" placeholder="quantity" required>
+</td>
+<td>
+    <label for="amount">Amount</label>
+</td>
+<td>
+<input type="number" id="amount" name="amount" class="input-items" placeholder="ex:200" required>
+</td>
+
+
+
+
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><button type="submit">add product</button></td>
+
+</tr>
+
+
+
+
+</table>
+
+</form>
+
+<table border="1px" style="width: 100%; ">
+<tr style=" background-color: rgb(104, 170, 170);">
+<th>id</th>
+<th>product name</th>
+<th>description</th>
+<th>categorie</th>
+<th>sub categorie </th>
+<th>weight</th>
+<th> quantity</th>
+</tr>
+{% if data %}
+{% for d in data %}
+<tr>
+<td>{{d.id}}</td>
+<td>{{d.p_name}}</td>
+<td>{{d.desc}}</td>
+<td>{{d.category}}</td>
+<td>{{d.sub_category}}</td>
+<td>{{d.weight}}</td>
+<td>{{d.quantity}}</td>
+</tr>
+{% endfor %}
+{% endif %}
+
+
+
+</table>
+
+</div>
+
+</body>
+</html>

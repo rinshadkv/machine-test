@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+.center{
+    margin: auto;
+    width: 50%;
+   margin-top: 50px;
+    border: 3px solid gray;
+    padding: 10px;
+}
+
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+
+
+
+</style>
+<body>
+
+
+<div>
+    <div class="center">
+    <form  action="" method="POST" onsubmit="return validateform()" name="myform">
+      {% csrf_token %}
+       
+    
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="username" >
+    <span id="s1"></span>
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password" >
+            <span>{{err}}</span>
+          <button type="submit" id="btn">Login</button>
+          <label>
+            
+        </div>
+    
+      </form> </div> </div>
+<script>
+
+
+function validateform(){  
+var name=document.forms.myform.username.value;  
+var password=document.forms.myform.password.value;  
+  
+// let x = document.forms["myform"]["username"].value;
+
+  if (name == "" ) {
+    console.log("jj")
+    alert("Name must be filled out");
+    return false;
+} 
+else if(password==""){
+  alert("password canot be null");
+  return false;
+}
+ }
+</script>
+
+
+</body>
+</html>
